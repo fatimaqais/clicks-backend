@@ -9,13 +9,13 @@ class PostSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
 
     def validate_image(self, value):
-        if value.size > 1024 * 1024 * 2:
+        if value.size > 1024 * 1024 * 4:
             raise serializers.ValidationError(
-                'Image size is larger than 2MB!'
+                'Image size is larger than 4MB!'
             )
-        if value.image.width > 4096:
+        if value.image.width > 5000:
             raise serializers.ValidationError(
-                'Image width larger than 4096px!'
+                'Image width larger than 500px!'
             )
         if value.image.height > 4096:
             raise serializers.ValidationError(
@@ -32,5 +32,5 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
-            'caption', 'image', 'image_filter'
+            'caption', 'image'
         ]
