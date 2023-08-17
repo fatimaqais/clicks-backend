@@ -15,4 +15,4 @@ class Post(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.id} shared a post on {self.updated_at}'
+        return f'{self.owner} shared {self.caption}'
