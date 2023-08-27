@@ -24,5 +24,10 @@
 - [Deployment](#deployment)
 - [Credits](#credits)
 
+# **Project**
 
+## Objective
 
+Clicks project is an app that allows user to connect with other people online or in person by joining different events shared by users. 
+
+Clicks API provides a backend database to create, view, edit and delete different. A user who wishes to share an event can upload information about the event, including the date, a description.
