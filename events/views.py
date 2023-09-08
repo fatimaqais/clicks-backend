@@ -1,5 +1,7 @@
 from django.http import Http404
-from rest_framework import status, permissions, generics
+from django.db.models import Count
+from rest_framework import status, permissions, filters, generics
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Events
@@ -13,7 +15,19 @@ class EventsList(generics.ListCreateAPIView):
         permissions.IsAuthenticatedOrReadOnly
     ]
 
-    queryset = Events.objects.all()
+    queryset = Events.objects.annotate(
+    ).order_by('-created_at')
+    filter_backends = [
+        filters.SearchFilter,
+        DjangoFilterBackend,
+    ]
+    search_fields = [
+        'owner__username',
+        'title',
+    ]
+    filterset_fields = {
+        'category': ['exact']
+    }
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
