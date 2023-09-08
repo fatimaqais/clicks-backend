@@ -1,5 +1,6 @@
 from django.http import Http404
-from rest_framework import status, permissions
+from django.db.models import Count
+from rest_framework import status, permissions, filters, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Post
@@ -7,31 +8,26 @@ from .serializers import PostSerializer
 from clicks_api.permissions import IsOwnerOrReadOnly
 
 
-class PostList(APIView):
+class PostList(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly
     ]
 
-    def get(self, request):
-        posts = Post.objects.all()
-        serializer = PostSerializer(
-            posts, many=True, context={'request': request}
-        )
-        return Response(serializer.data)
+    queryset = Post.objects.annotate(
+        likes_count=Count('likedpost', distinct=True),
+        comments_count=Count('comment', distinct=True)
+    ).order_by('-created_at')
+    filter_backends = [
+        filters.OrderingFilter
+    ]
+    ordering_fields = [
+        'likes_count',
+        'comments_count',
+    ]
 
-    def post(self, request):
-        serializer = PostSerializer(
-            data=request.data, context={'request': request}
-        )
-        if serializer.is_valid():
-            serializer.save(owner=request.user)
-            return Response(
-                serializer.data, status=status.HTTP_201_CREATED
-            )
-        return Response(
-            serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class PostDetail(APIView):
