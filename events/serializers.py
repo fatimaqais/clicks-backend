@@ -1,6 +1,7 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from events.models import Events
+from eventlikes.models import LikeEvent
 
 
 class EventsSerializer(serializers.ModelSerializer):
@@ -8,6 +9,8 @@ class EventsSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
+    event_like_id = serializers.SerializerMethodField()
+    eventlikes_count = serializers.ReadOnlyField()
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
@@ -36,10 +39,20 @@ class EventsSerializer(serializers.ModelSerializer):
     def get_updated_at(self, obj):
         return naturaltime(obj.updated_at)
 
+    def get_event_like_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            eventlike = LikeEvent.objects.filter(
+                owner=user, event=obj
+            ).first()
+            return eventlike.id if eventlike else None
+        return None
+
     class Meta:
         model = Events
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
-            'title', 'image', 'details', 'date', 'category'
+            'title', 'image', 'details', 'date', 'category',
+            'event_like_id', 'eventlikes_count'
         ]
