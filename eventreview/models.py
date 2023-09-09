@@ -17,7 +17,7 @@ class EventReviews(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     review = models.TextField()
     image = models.ImageField(
-        upload_to='images/', default='../placeholder_fjdrce', blank=True
+        upload_to='images/', default='../event_cn9ezb.jpg', blank=True
     )
     rating = models.CharField(
         max_length=50, choices=RATING, default='Average'

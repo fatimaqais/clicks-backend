@@ -19,7 +19,7 @@ class Events(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../event_cn9ezb.jpg'
     )
-    details = models.TextField(blank=True)
+    details = models.TextField(blank=False)
     date = models.DateField(blank=False)
     category = models.CharField(
         max_length=50, choices=CATEGORIES, default='General'

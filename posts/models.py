@@ -7,9 +7,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(
-        upload_to='images/', default='../placeholder_fjdrce', blank=True
+        upload_to='images/'
     )
-    caption = models.CharField(max_length=255)
+    caption = models.CharField(max_length=255, blank=False)
 
     class Meta:
         ordering = ['-created_at']
