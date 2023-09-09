@@ -31,5 +31,6 @@ urlpatterns = [
     path('', include('events.urls')),
     path('', include('likeposts.urls')),
     path('', include('following.urls')),
-    path('', include('eventreview.urls'))
+    path('', include('eventreview.urls')),
+    path('', include('eventlikes.urls'))
 ]
