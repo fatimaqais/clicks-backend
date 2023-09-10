@@ -19,6 +19,7 @@
   * [Github Project Board](#github-project-board)
 - [Testing](#testing)
 - [Deployment](#deployment)
+  * [Cloning and setting up the project](#cloning-and-setting-up-the-project)
 - [Credits](#credits)
 
 # **Project**
@@ -88,3 +89,232 @@ Link to the deployed Front End project- [Deployed front end]()
 + As a user, I can create a like on a post so that I can show my appreciation for it
 + As a user, I can view all the likes on a post so that I can see how many people have liked it
 + As a user, I can delete my like on a post so that I can delete it from the API
+
+## Deployment
+
+The project was deployed to [Heroku](). A new database was created using [ElephantSQL.com](https://www.elephantsql.com/)
+
+**Create a new database**
+1. Log in to ElephantSQL to access your dashboard.
+2. Click create new instance
+3. Set up your plan:
+  - Give your plan a name
+  -  Select Tiny Turtle(free) plan
+  - You can leave the tags field blank
+4. Select a Region. Then select a data centre near you eg.EU-West_1 (Ireland)
+5. Click Review then check that your details are correct and then click **"Create Instance"**
+6. Return to the ElephantSQL dashboard and click on the **database instance name** for this project.
+7. In the URL section, click the copy icon to **copy the database URL**
+
+**Create a Heroku App**
+1. Log into Heroku and go to the Dashboard, then click on **New** and then click **create new app**.
+2. Give your app a name and select the region closest to you. When you’re done, click **“Create app”** to confirm.
+3. Open the **Settings Tab** and then add a Config Var **DATABASE_URL**, and for the value, copy in your database URL from ElephantSQL (do not add quotation marks). It should look like this:
+![Database URL](documentation/database-url.jpg)
+
+**Prepare project in your IDE for deployment**
+1. In the **terminal**, install **dj_database_url** and **psycopg2**, both of these are needed to connect to your external database
+```Python
+
+pip3 install dj_database_url==0.5.0 psycopg2
+
+```
+
+2. In your **settings.py** file, import dj_database_url **underneath the import for os**
+```Python
+
+import os
+import dj_database_url
+
+```
+
+3. Update the **DATABASES** section to the following:
+```Python
+
+if 'DEV' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+
+```
+
+4. In your **env.py** file, add a new environment variable with the key set to DATABASE_URL, and the value to your ElephantSQL database URL
+```Python
+
+os.environ['DATABASE_URL'] = "<your PostgreSQL URL here>"
+
+```
+
+5. **Temporarily** comment out the **DEV** environment variable so that your IDE can connect to your external database.
+```Python
+
+import os
+
+ os.environ['CLOUDINARY_URL'] = "cloudinary://..."
+ os.environ['SECRET_KEY'] = "Z7o..."
+ # os.environ['DEV'] = '1'
+ os.environ['DATABASE_URL'] = "postgres://..."
+
+```
+6. In the terminal, **-–dry-run your makemigrations** to confirm you are connected to the external database.
+```Python
+
+python3 manage.py makemigrations --dry-run
+
+```
+7. If you are, you should see the **‘connected’** message printed to the terminal
+8. Migrate your database models to your new database
+```Python
+
+python3 manage.py migrate
+
+```
+9. Create a superuser for your new database
+```Python
+
+python3 manage.py createsuperuser
+
+```
+10. In the **terminal** of your IDE workspace, install **gunicorn**
+```Python
+
+pip3 install gunicorn django-cors-headers
+
+```
+11. Update your **requirements.txt**
+```Python
+
+pip freeze --local > requirements.txt
+
+```
+12. Create a **Procfile** and inside the Procfile add these two commands:
+```Python
+
+release: python manage.py makemigrations && python manage.py migrate
+web: gunicorn clicks_api.wsgi
+
+```
+13. In your **settings.py** file, update the value of the **ALLOWED_HOSTS** variable to include your Heroku app’s URL
+```Python
+
+ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']
+
+```
+14. Add corsheaders to INSTALLED_APPS
+```Python
+
+INSTALLED_APPS = [
+    ...
+    'dj_rest_auth.registration',
+    'corsheaders',
+    ...
+ ]
+
+```
+15. Add **corsheaders middleware** to the TOP of the **MIDDLEWARE**
+```Python
+
+ SITE_ID = 1
+ MIDDLEWARE = [
+     'corsheaders.middleware.CorsMiddleware',
+     ...
+ ]
+
+```
+16. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the network requests made to the server with the following code:
+```Python
+
+ if 'CLIENT_ORIGIN' in os.environ:
+     CORS_ALLOWED_ORIGINS = [
+         os.environ.get('CLIENT_ORIGIN')
+     ]
+ else:
+     CORS_ALLOWED_ORIGIN_REGEXES = [
+         r"^https://.*\.gitpod\.io$",
+     ]
+
+```
+17. Enable sending cookies in cross-origin requests so that users can get authentication functionality
+```Python
+
+ else:
+     CORS_ALLOWED_ORIGIN_REGEXES = [
+         r"^https://.*\.gitpod\.io$",
+     ]
+
+ CORS_ALLOW_CREDENTIALS = True
+
+```
+18. To be able to have the front end app and the API deployed to different platforms, set the **JWT_AUTH_SAMESITE** attribute to **'None'**. Without this the cookies would be blocked
+```Python
+
+ JWT_AUTH_COOKIE = 'my-app-auth'
+ JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
+ JWT_AUTH_SAMESITE = 'None'
+
+```
+19. Remove the value for SECRET_KEY and replace with the following code to use an environment variable instead
+```Python
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+```
+20. Set a NEW value for your SECRET_KEY environment variable in env.py, do NOT use the same one that has been published to GitHub in your commits
+```Python
+
+os.environ.setdefault("SECRET_KEY", "CreateANEWRandomValueHere")
+
+```
+21. Set the DEBUG value to be True only if the DEV environment variable exists. This will mean it is True in development, and False in production
+```Python
+
+DEBUG = 'DEV' in os.environ
+
+```
+22. Comment DEV back in env.py
+```Python
+
+ import os
+
+ os.environ['CLOUDINARY_URL'] = "cloudinary://..."
+ os.environ['SECRET_KEY'] = "..."
+ os.environ['DEV'] = '1'
+ os.environ['DATABASE_URL'] = "postgres://..."
+
+```
+23. Ensure the project requirements.txt file is up to date. In the IDE terminal of your DRF API project enter the following
+```Python
+
+pip freeze --local > requirements.txt
+
+```
+24. Go back on the Heroku dashboard for your app, open the **Settings** tab, and add two mor Config Vars:
+- SECRET KEY and CLOUDINARY_URL
+
+![secret key](documentation/secretkey.jpg)
+![Cloudinary url](documentation/cloudinary-url.jpg)
+
+25. Open the **Deploy** tab and in **Deployement** method section, select **Connnect to Github**
+26. Search for your Repo and then **Deploy Branch**. You app should then be up and running!
+
+### Cloning and setting up the project
+Steps to clone and set up this project:
+1. In this repository, click on the code tab.
+2. Once you click on the tab, click on local and copy the URL.
+3. Use an IDE and open Git Bash. Change directory to the location where you want the cloned directory to be made.
+4. Type **git clone** and then paste the URL that you copied from GitHub.
+5. To get the project working, install requirements, which will download all the dependencies.
+```Python
+
+pip3 install -r requirements.txt
+
+``` 
+6. Set up the **env.py** file but make sure you add it to **.gitignore** so that the contents of your env.py file stays hidden and isn't pushed to GitHub.
+7. Make sure all the changes have been migrated and you should be okay to run the project.
