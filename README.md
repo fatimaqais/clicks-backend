@@ -93,10 +93,26 @@ Link to the Front End repository- [GitHub Repository]()
 + As a user, I can view all the likes on a post so that I can see how many people have liked it
 + As a user, I can delete my like on a post so that I can delete it from the API
 
+## Technologies Used
+### Language Used
+
+- Python
+
+### Frameworks, Libraries and Programs Used
+
+- Django
+- Django RestFramework
+- Cloudinary
+- Heroku
+- Pillow
+- Django Rest Auth
+- PostgreSQL
+- Cors Headers
+
 ## Agile Workflow
 ### GitHub Project Board
 
-I used the GitHub project board to build this project. I created different user stories to keep track of all the required compnents this project needed to work efficiently and meet user requirements.  This was also helpful in keeping track of all the tasks I had completed or which needed to be done.
+I used the GitHub project board to build this project. I created different user stories to keep track of all the required components this project needed to work efficiently and meet user requirements.  This was also helpful in keeping track of all the tasks I had completed or which needed to be done.
 
 ![Project board](/documentation/projectboard.jpg)
 
