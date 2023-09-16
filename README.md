@@ -31,6 +31,7 @@ Clicks Project is an app that allows user to connect with other people online or
 Clicks API provides a backend database to create, view, edit and delete different items. Users can share a post, leave a comment on different posts and like post and comments. A user who wishes to share an event can upload information about the event, including the date, and a description. Other user can rate an event and also leave a comment on it. Events can be saved by users so they don't miss out on it.
 
 The Link to the deployed API- [Deployed Project]()
+
 Link to the deployed Front End project- [Deployed front end]()
 
 ## User Stories
@@ -89,6 +90,18 @@ Link to the deployed Front End project- [Deployed front end]()
 + As a user, I can create a like on a post so that I can show my appreciation for it
 + As a user, I can view all the likes on a post so that I can see how many people have liked it
 + As a user, I can delete my like on a post so that I can delete it from the API
+
+## Agile Workflow
+### GitHub Project Board
+
+I used the GitHub project board to build this project. I created different user stories to keep track of all the required compnents this project needed to work efficiently and meet user requirements.  This was also helpful in keeping track of all the tasks I had completed or which needed to be done.
+
+![Project board](/documentation/projectboard.jpg)
+
+## Testing
+
+To view all the testing for this project, follow this [link](/TESTING.md).
+
 
 ## Deployment
 
