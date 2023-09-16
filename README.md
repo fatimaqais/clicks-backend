@@ -13,8 +13,9 @@
   + [Posts](#posts)
   + [Post Comments](#PostComments)
   + [Post Likes](#Postlikes)
-- [Features](#features)
-  * [Homepage](#homepage)
+- [Technologies Used](#technologies-used)
+  * [Language Used](#language-used)
+  * [Frameworks, Libraries and Programs Used](#frameworks-libraries-and-programs-used)
 - [Agile Workflow](#agile-workflow)
   * [Github Project Board](#github-project-board)
 - [Testing](#testing)
@@ -30,9 +31,10 @@ Clicks Project is an app that allows user to connect with other people online or
 
 Clicks API provides a backend database to create, view, edit and delete different items. Users can share a post, leave a comment on different posts and like post and comments. A user who wishes to share an event can upload information about the event, including the date, and a description. Other user can rate an event and also leave a comment on it. Events can be saved by users so they don't miss out on it.
 
-The Link to the deployed API- [Deployed Project]()
+The Link to the deployed API- [Deployed Project](https://clicks-api-cf3d319eca2f.herokuapp.com/)
 
 Link to the deployed Front End project- [Deployed front end]()
+Link to the Front End repository- [GitHub Repository]()
 
 ## User Stories
 ### Profiles
@@ -40,7 +42,7 @@ Link to the deployed Front End project- [Deployed front end]()
 + As a user, I can create a profile so that I can share my details and create an account
 + As a user, I can view details of my profile or other users profiles
 + As a user, I can edit details on my profile if I am logged in.
-+ As a user, I can delete my own profile.
++ As a user, I can delete my profile.
 
 ### Events
 
@@ -170,10 +172,10 @@ os.environ['DATABASE_URL'] = "<your PostgreSQL URL here>"
 
 import os
 
- os.environ['CLOUDINARY_URL'] = "cloudinary://..."
- os.environ['SECRET_KEY'] = "Z7o..."
- # os.environ['DEV'] = '1'
- os.environ['DATABASE_URL'] = "postgres://..."
+os.environ['CLOUDINARY_URL'] = "cloudinary://..."
+os.environ['SECRET_KEY'] = "Z7o..."
+# os.environ['DEV'] = '1'
+os.environ['DATABASE_URL'] = "postgres://..."
 
 ```
 6. In the terminal, **-–dry-run your makemigrations** to confirm you are connected to the external database.
@@ -314,14 +316,14 @@ pip freeze --local > requirements.txt
 ![secret key](documentation/secretkey.jpg)
 ![Cloudinary url](documentation/cloudinary-url.jpg)
 
-25. Open the **Deploy** tab and in **Deployement** method section, select **Connnect to Github**
-26. Search for your Repo and then **Deploy Branch**. You app should then be up and running!
+25. Open the **Deploy** tab and in **Deployment** method section, select **Connect to GitHub**
+26. Search for your Repo and then **Deploy Branch**. Your app should then be up and running!
 
 ### Cloning and setting up the project
 Steps to clone and set up this project:
 1. In this repository, click on the code tab.
 2. Once you click on the tab, click on local and copy the URL.
-3. Use an IDE and open Git Bash. Change directory to the location where you want the cloned directory to be made.
+3. Use an IDE and open Git Bash. Change the directory to the location where you want the cloned directory to be made.
 4. Type **git clone** and then paste the URL that you copied from GitHub.
 5. To get the project working, install requirements, which will download all the dependencies.
 ```Python
@@ -329,5 +331,10 @@ Steps to clone and set up this project:
 pip3 install -r requirements.txt
 
 ``` 
-6. Set up the **env.py** file but make sure you add it to **.gitignore** so that the contents of your env.py file stays hidden and isn't pushed to GitHub.
+6. Set up the **env.py** file but make sure you add it to **.gitignore** so that the contents of your env.py file stay hidden and aren't pushed to GitHub.
 7. Make sure all the changes have been migrated and you should be okay to run the project.
+
+## Credits
+
+- Images were taken from [Pexels](https://www.pexels.com/)
+- The project was inspired by the [code institute](https://learn.codeinstitute.net) back-end DRF_API. After taking ideas from the DRF_API I created my own events section which contains a different model and review section. Because of the lack of time and starting a new job, I wanted to keep the project simple and related to something I had learnt and enjoyed creating. I liked the walk-through project and wanted to create my social media page with a something different, so I added an event section.
