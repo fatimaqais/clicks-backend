@@ -11,12 +11,15 @@
     * [Event Likes](#event-likes)
     * [Profiles](#profiles)
 - [PEP8 Validation](#pep8-validation)
-    * [Posts](#posts)
-    * [Events](#events)
-    * [Liked Posts](#liked-posts)
-    * [Comments](#comments)
-    * [Reviews](#reviews)
-    * [Event Likes](#event-likes)
+    * [Posts Validation](#posts-validation)
+    * [Events Validation](#events-validation)
+    * [Liked Posts Validation](#liked-posts-validation)
+    * [Comments Validation](#comments-validation)
+    * [Reviews Validation](#reviews-validation)
+    * [Event Likes Validation](#event-likes-validation)
+    * [Profiles Validation](#profiles-validation)
+    * [Following Validation](#following-validation)
+    * [Clicks API Validation](#clicks-api-validation)
 - [Known Bugs](#known-bugs)
 
 ## Manual Testing
@@ -106,3 +109,168 @@ Manual testing was completed for each app to ensure everything was working fine 
 | &check; | Profile List can filter to search for user by entering letters or keywords
 
 
+## PEP8 Validation
+
+I used the code institute [CI PEP8 Linter](https://pep8ci.herokuapp.com/#) to test for any errors or bugs in the code. Any error or bugs that were returned have been fixed.
+
+### Posts Validation
+
+**models.py file**
+
+![post models.py](/documentation/testing/post-model.png)
+
+**serializer.py file**
+
+![post serializer](/documentation/testing/post-serializer.png)
+
+**urls.py**
+
+![post urls](/documentation/testing/post-urls.png)
+
+**views.py**
+
+![post views](/documentation/testing/post-view.png)
+
+### Events Validation
+
+**models.py file**
+
+![Events models](/documentation/testing/events-model.png)
+
+**serializers.py**
+
+![Event Serializer](/documentation/testing/event-serializer.png)
+
+**urls.py**
+
+![Event urls](/documentation/testing/event-urls.png)
+
+**views.py**
+
+![Event Views](/documentation/testing/event-views.png)
+
+### Liked Posts Validation
+
+**models.py**
+
+![Like posts model](/documentation/testing/likepost-model.png)
+
+**serializers.py**
+
+![Like posts model](/documentation/testing/likepost-serializer.png)
+
+**urls.py**
+
+![Like posts model](/documentation/testing/likepost-urls.png)
+
+**views.py**
+
+![Like posts model](/documentation/testing/likepost-views.png)
+
+### Comments Validation
+
+**models.py**
+
+![Comment model](/documentation/testing/comment-model.png)
+
+**serializers.py**
+
+![Comment serializer](/documentation/testing/comment-serializer.png)
+
+**urls.py**
+
+![Comment urls](/documentation/testing/comment-urls.png)
+
+**views.py**
+
+![Comment views](/documentation/testing/comment-views.png)
+
+### Reviews Validation
+
+**models.py**
+
+![Review models](/documentation/testing/reviews-model.png)
+
+**serializers.py**
+
+![Review serializer](/documentation/testing/reviews-serializer.png)
+
+**urls.py**
+
+![Review urls](/documentation/testing/reviews-urls.png)
+
+**views.py**
+
+![Review views](/documentation/testing/review-views.png)
+
+### Event Likes Validation
+
+**models.py**
+
+![Event Likes models](/documentation/testing/eventlikes-model.png)
+
+**serializers.py**
+
+![Event Likes serializer](/documentation/testing/eventlikes-serializer.png)
+
+**urls.py**
+
+![Event Likes serializer](/documentation/testing/eventlikes-urls.png)
+
+**views.py**
+
+![Event Likes views](/documentation/testing/eventlikes-views.png)
+
+### Profiles Validation
+
+**models.py**
+
+![Profiles model](/documentation/testing/profile-model.png)
+
+**serializers.py**
+
+![Profiles serializer](/documentation/testing/profile-serializer.png)
+
+**urls.py**
+
+![Profiles urls](/documentation/testing/profile-url.png)
+
+**views.py**
+
+![Profile views](/documentation/testing/profile-views.png)
+
+### Following Validation
+
+**models.py**
+
+![Following model](/documentation/testing/following-model.png)
+
+**serializers.py**
+
+![Following serializer](/documentation/testing/profile-serializer.png)
+
+**urls.py**
+
+![Following urls](/documentation/testing/following-urls.png)
+
+**views.py**
+
+![Following views](/documentation/testing/profile-views.png)
+
+### Clicks API Validation
+
+**permissions.py**
+
+![API model](/documentation/testing/api-permissions.png)
+
+**serializers.py**
+
+![API serializer](/documentation/testing/api-serializer.png)
+
+**urls.py**
+
+![API urls](/documentation/testing/api-urls.png)
+
+**views.py**
+
+![API views](/documentation/testing/api-views.png)
