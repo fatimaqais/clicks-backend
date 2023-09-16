@@ -274,3 +274,13 @@ I used the code institute [CI PEP8 Linter](https://pep8ci.herokuapp.com/#) to te
 **views.py**
 
 ![API views](/documentation/testing/api-views.png)
+
+## Known Bugs
+
+### Resolved Bugs
+
+- While trying to filter profiles by the most or least events created, it wasn't working as the option wasn't displaying in the API. This was fixed as I figured out that events_count wasn't added in the profiles/serializers.py file in the Meta class. 
+
+### Unresolved Bugs
+
+- There are no unresolved bugs left.
