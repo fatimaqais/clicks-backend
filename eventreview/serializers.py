@@ -27,7 +27,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
-            'review', 'rating', 'image', 'event'
+            'review', 'rating', 'event'
         ]
 
     def create(self, validated_data):
