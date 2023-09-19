@@ -11,6 +11,7 @@ class EventsSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     event_like_id = serializers.SerializerMethodField()
     eventlikes_count = serializers.ReadOnlyField()
+    reviews_count = serializers.ReadOnlyField()
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
 
@@ -54,5 +55,5 @@ class EventsSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
             'title', 'image', 'details', 'date', 'category',
-            'event_like_id', 'eventlikes_count'
+            'event_like_id', 'eventlikes_count', 'reviews_count'
         ]

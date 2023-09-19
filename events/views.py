@@ -16,6 +16,7 @@ class EventsList(generics.ListCreateAPIView):
     ]
 
     queryset = Events.objects.annotate(
+        reviews_count=Count('eventreviews', distinct=True),
         eventlikes_count=Count('likedevent', distinct=True)
     ).order_by('-created_at')
     filter_backends = [
@@ -28,7 +29,8 @@ class EventsList(generics.ListCreateAPIView):
         'title',
     ]
     ordering_fields = [
-        'eventlikes_count'
+        'eventlikes_count',
+        'reviews_count'
     ]
     filterset_fields = {
         'category': ['exact']
