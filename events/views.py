@@ -44,6 +44,11 @@ class EventsDetail(APIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = EventsSerializer
 
+    queryset = Events.objects.annotate(
+        reviews_count=Count('eventreviews', distinct=True),
+        eventlikes_count=Count('likedevent', distinct=True)
+    ).order_by('-created_at')
+
     def get_object(self, pk):
         try:
             event = Events.objects.get(pk=pk)

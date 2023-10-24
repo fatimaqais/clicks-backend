@@ -39,6 +39,11 @@ class PostDetail(APIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = PostSerializer
 
+    queryset = Post.objects.annotate(
+        likes_count=Count("likes", distinct=True),
+        comments_count=Count("comment", distinct=True),
+    ).order_by("-created_at")
+
     def get_object(self, pk):
         try:
             post = Post.objects.get(pk=pk)
