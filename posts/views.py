@@ -40,7 +40,7 @@ class PostDetail(APIView):
     serializer_class = PostSerializer
 
     queryset = Post.objects.annotate(
-        likes_count=Count("likes", distinct=True),
+        likes_count=Count("likedpost", distinct=True),
         comments_count=Count("comment", distinct=True),
     ).order_by("-created_at")
 
