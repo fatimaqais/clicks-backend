@@ -40,7 +40,7 @@ class EventsList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class EventsDetail(APIView):
+class EventsDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = EventsSerializer
 
@@ -48,37 +48,3 @@ class EventsDetail(APIView):
         reviews_count=Count('eventreviews', distinct=True),
         eventlikes_count=Count('likedevent', distinct=True)
     ).order_by('-created_at')
-
-    def get_object(self, pk):
-        try:
-            event = Events.objects.get(pk=pk)
-            self.check_object_permissions(self.request, event)
-            return event
-        except Events.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk):
-        event = self.get_object(pk)
-        serializer = EventsSerializer(
-            event, context={'request': request}
-        )
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        event = self.get_object(pk)
-        serializer = EventsSerializer(
-            event, data=request.data, context={'request': request}
-        )
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(
-            serializer.errors, status=status.HTTP_400_BAD_REQUEST
-        )
-
-    def delete(self, request, pk):
-        event = self.get_object(pk)
-        event.delete()
-        return Response(
-            status=status.HTTP_204_NO_CONTENT
-        )
