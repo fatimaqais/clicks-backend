@@ -40,6 +40,6 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Profile.objects.annotate(
         posts_count=Count('owner__post', distinct=True),
         events_count=Count('owner__events', distinct=True),
-        followers_count=Count('owner__followed', distinct=True),
+        followed_count=Count('owner__followed', distinct=True),
         following_count=Count('owner__following', distinct=True)
     ).order_by('-created_at')
