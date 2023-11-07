@@ -1,7 +1,6 @@
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from .models import EventReviews
-from django.db import IntegrityError
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -29,14 +28,6 @@ class ReviewSerializer(serializers.ModelSerializer):
             'profile_image', 'created_at', 'updated_at',
             'review', 'rating', 'event'
         ]
-
-    def create(self, validated_data):
-        try:
-            return super().create(validated_data)
-        except IntegrityError:
-            raise serializers.ValidationError({
-                'detail': 'A review for this event has already been created.'
-            })
 
 
 class ReviewDetailSerializer(ReviewSerializer):
