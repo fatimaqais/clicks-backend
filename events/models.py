@@ -17,7 +17,7 @@ class Events(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     image = models.ImageField(
-        upload_to='images/', blank=False
+        upload_to='images/', blank=True
     )
     details = models.TextField(blank=False)
     date = models.DateField(blank=False)

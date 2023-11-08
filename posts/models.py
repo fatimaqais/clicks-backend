@@ -7,7 +7,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(
-        upload_to='images/'
+        upload_to='images/', blank=True
     )
     caption = models.CharField(max_length=255, blank=False)
 
